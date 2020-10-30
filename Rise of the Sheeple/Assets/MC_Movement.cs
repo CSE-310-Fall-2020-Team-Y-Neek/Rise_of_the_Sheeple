@@ -11,12 +11,12 @@ public class MC_Movement : MonoBehaviour
     public float moveX;
 
     // Start is called before the first frame update
-    /*
+    
     void Start()
     {
         
     }
-    */
+    
 
     // Update is called once per frame
     void Update()
@@ -34,14 +34,14 @@ public class MC_Movement : MonoBehaviour
         //PlayerDirection
         if((moveX < 0.0f) && (facingRight == false))
         {
-            FlipPlayer ();
+            FlipPlayer();
         }
         else if ((moveX > 0.0f) && (facingRight == true))
         {
             FlipPlayer();
         }
         //Physics should already be taken care of
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (moveX = playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
     }
 
     void FlipPlayer()
