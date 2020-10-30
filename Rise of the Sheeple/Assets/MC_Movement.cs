@@ -1,13 +1,24 @@
-﻿using System.Collections;
+﻿/****
+Author: Ben Clark
+Using video series "Unity Tutorial - 2D Side Scroller (Super Platformer Bros),
+done by Lets Make A Game Together channel. 
+
+****/
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MC_Movement : MonoBehaviour
 {
-
+    
     public int playerSpeed = 10;
-    public bool facingRight = true;
     public int playerJumpPower = 1300;
+
+    public bool facingRight = true;
+    private bool isJumping = false;
+
     public float moveX;
 
     // Start is called before the first frame update
@@ -19,7 +30,7 @@ public class MC_Movement : MonoBehaviour
     
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         PlayerMove();
 
@@ -29,9 +40,11 @@ public class MC_Movement : MonoBehaviour
     {
         //Controls
         moveX = Input.GetAxis("Horizontal");
-        if(Input.GetButtonDown ("Jump"))
+        if(Input.GetButtonDown ("Jump") && isJumping == false)
         {
+            isJumping = true;
             Jump();
+            isJumping = false;
         }
         //Animations?
 
