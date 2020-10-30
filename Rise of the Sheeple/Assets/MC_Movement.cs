@@ -29,7 +29,7 @@ public class MC_Movement : MonoBehaviour
     {
         //Controls
         moveX = Input.GetAxis("Horizontal");
-        if(Inpuq.GetButtonDown ("Jump"))
+        if(Input.GetButtonDown ("Jump"))
         {
             Jump();
         }
