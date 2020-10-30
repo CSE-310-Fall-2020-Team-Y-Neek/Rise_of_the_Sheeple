@@ -41,7 +41,6 @@ public class MC_Movement : MonoBehaviour
             FlipPlayer();
         }
         //Physics should already be taken care of
-        gameObject.GetComponent<RigidBody2D>().velocity = new Vector2 (moveX * playerSpeed, gameObject.GetComponent<RigidBody2D>().velocity.y);
 
     }
 
