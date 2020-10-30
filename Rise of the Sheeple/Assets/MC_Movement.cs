@@ -18,8 +18,11 @@ public class MC_Movement : MonoBehaviour
 
     public bool facingRight = true;
     private bool isJumping = false;
-
+    public bool isGrounded;
+    public transform groundCheck; //needed for not being able to multi-jump
+    public LayerMask groundObjects;
     public float moveX;
+    public float checkRadius;
 
     // Start is called before the first frame update
     
@@ -29,18 +32,21 @@ public class MC_Movement : MonoBehaviour
     }
     
 
-    // Update is called once per frame
+    // Using FixedUpdate b/c we are relying on physics calculations done by RigidBody
+    // and this lessens the load on the CPU
     private void FixedUpdate()
     {
-        PlayerMove();
+        //Check if grounded
+        isGrounded = Physics2D.overlapCircle(groundCheck.position, checkRadius, groundObjects);
 
+        PlayerMove();
     }
 
     void PlayerMove()
     {
         //Controls
         moveX = Input.GetAxis("Horizontal");
-        if(Input.GetButtonDown ("Jump") && isJumping == false)
+        if(Input.GetButtonDown ("Jump") && isGrounded)
         {
             isJumping = true;
             Jump();
