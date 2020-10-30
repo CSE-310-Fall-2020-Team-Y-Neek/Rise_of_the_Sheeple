@@ -37,7 +37,7 @@ public class MC_Movement : MonoBehaviour
     private void FixedUpdate()
     {
         //Check if grounded
-        isGrounded = Physics2D.overlapCircle(groundCheck.position, checkRadius, groundObjects);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
 
         PlayerMove();
     }
