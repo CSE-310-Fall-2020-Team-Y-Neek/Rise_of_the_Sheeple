@@ -29,6 +29,10 @@ public class MC_Movement : MonoBehaviour
     {
         //Controls
         moveX = Input.GetAxis("Horizontal");
+        if(Inpuq.GetButtonDown ("Jump"))
+        {
+            Jump();
+        }
         //Animations?
 
         //PlayerDirection
@@ -46,11 +50,14 @@ public class MC_Movement : MonoBehaviour
 
     void FlipPlayer()
     {
-
+        facingRight = !facingRight;
+        Vector2 localScale = gameObject.transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
     }
 
     void Jump()
     {
-
+            GetComponent<Rigidbody2D>().AddForce (Vector2.up * playerJumpPower);
     }
 }
