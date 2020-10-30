@@ -2,6 +2,7 @@
 Author: Ben Clark
 Using video series "Unity Tutorial - 2D Side Scroller (Super Platformer Bros),
 done by Lets Make A Game Together channel. 
+Also used "2D Side Scroller MOVEMENT in Unity (BEGINNER FRIENDLY)" by BMo channel. 
 
 ****/
 
@@ -15,22 +16,30 @@ public class MC_Movement : MonoBehaviour
     
     public int playerSpeed = 10;
     public int playerJumpPower = 1300;
+    public float moveX;//Used to determine velocity in the x direction
 
-    public bool facingRight = true;
-    private bool isJumping = false;
-    public bool isGrounded;
-    public Transform groundCheck; //needed for not being able to multi-jump
-    public LayerMask groundObjects;
-    public float moveX;
-    public float checkRadius;
-
-    // Start is called before the first frame update
+    public bool facingRight = true;//Might need to be set to false. Can change in the GUI of unity properties. 
     
+    //private bool isJumping = false;//Not used since we are using isGrounded to prevent multi-jump. 
+    public bool isGrounded;
+    public Transform groundCheck; //Check if radius of character is touching a ground object.
+    public LayerMask groundObjects;//This layer is how the character knows what objects can be jumped off of.
+    public float checkRadius;//Might need a value. Instructions unclear on how to get this to work.
+
+    
+    /* These functions aren't currently being used.
+    // Start is called before the first frame update
     void Start()
     {
         
     }
     
+
+    void Update()
+    {
+
+    }
+    */
 
     // Using FixedUpdate b/c we are relying on physics calculations done by RigidBody
     // and this lessens the load on the CPU
@@ -45,29 +54,36 @@ public class MC_Movement : MonoBehaviour
     void PlayerMove()
     {
         //Controls
-        moveX = Input.GetAxis("Horizontal");
-        if(Input.GetButtonDown ("Jump") && isGrounded)
+        moveX = Input.GetAxis("Horizontal");//Side movement, default mapped to arrow and WASD keys. 
+
+
+        if(Input.GetButtonDown ("Jump") && isGrounded)//Can only jump when touching a ground object. Prevents multi-jumping.
         {
-            isJumping = true;
+            //isJumping = true;
             Jump();
-            isJumping = false;
+            //isJumping = false;
         }
-        //Animations?
+    
 
         //PlayerDirection
-        if((moveX < 0.0f) && (facingRight == false))
+        if((moveX < 0) && (facingRight == false))
         {
             FlipPlayer();
         }
-        else if ((moveX > 0.0f) && (facingRight == true))
+        else if ((moveX > 0) && (facingRight == true))
         {
             FlipPlayer();
         }
-        //Physics should already be taken care of
+
+
+        //Physics modifications
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+
+
+        //Animations?
     }
 
-    void FlipPlayer()
+    void FlipPlayer()//This flips the sprite automatically when facing a different direction.
     {
         facingRight = !facingRight;
         Vector2 localScale = gameObject.transform.localScale;
