@@ -19,7 +19,7 @@ public class MC_Movement : MonoBehaviour
     public bool facingRight = true;
     private bool isJumping = false;
     public bool isGrounded;
-    public transform groundCheck; //needed for not being able to multi-jump
+    public Transform groundCheck; //needed for not being able to multi-jump
     public LayerMask groundObjects;
     public float moveX;
     public float checkRadius;
