@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
 
     public int playerSpeed = 30;
-    public int playerJumpPower = 1300;
     public float moveX = 0;//Used to determine velocity in the x direction
 
     public bool facingRight = false;//Might need to be set to false. Can change in the GUI of unity properties. 
@@ -29,17 +28,26 @@ public class PlayerMovement : MonoBehaviour
     // public float checkRadius;//Might need a value. Instructions unclear on how to get this to work.
 
     
-    /* These functions aren't currently being used.
 
     void Update()
     {
+        //Controls
+        moveX = Input.GetAxisRaw("Horizontal") * playerSpeed;//Side movement, default mapped to arrow and WASD keys. 
 
+        // Run Animation
+        animator.SetFloat("Speed", Mathf.Abs(moveX)); 
+
+        if (Input.GetButtonDown ("Jump"))//Can only jump when touching a ground object. Prevents multi-jumping.
+        {
+            isJumping = true;
+            animator.SetBool("IsJumping", true);
+        }
     }
-    */
 
     // Using FixedUpdate b/c we are relying on physics calculations done by RigidBody
     // and this lessens the load on the CPU
-    private void FixedUpdate()
+    
+    void FixedUpdate()
     {
         //Check if grounded
         // isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
@@ -47,22 +55,27 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(moveX * Time.fixedDeltaTime, false, isJumping);
 
         PlayerMove();
+        isJumping = false;
     }
+
+    public void onLanding()
+    {
+        animator.SetBool("IsJumping", false);
+    }
+
 
     void PlayerMove()
     {
-        //Controls
-        moveX = Input.GetAxisRaw("Horizontal") * playerSpeed;//Side movement, default mapped to arrow and WASD keys. 
+        // //Controls
+        // moveX = Input.GetAxisRaw("Horizontal") * playerSpeed;//Side movement, default mapped to arrow and WASD keys. 
 
-        animator.SetFloat("Speed", Mathf.Abs(moveX)); 
+        // animator.SetFloat("Speed", Mathf.Abs(moveX)); 
 
-        if(Input.GetButtonDown ("Jump"))//Can only jump when touching a ground object. Prevents multi-jumping.
-        {
-            isJumping = true;
-            Jump();
-            isJumping = false;
-        }
-    
+        // if(Input.GetButtonDown ("Jump"))//Can only jump when touching a ground object. Prevents multi-jumping.
+        // {
+        //     isJumping = true;
+        // }
+
 
         //PlayerDirection
         if((moveX < 0) && (facingRight == false))
@@ -88,10 +101,5 @@ public class PlayerMovement : MonoBehaviour
         Vector2 localScale = gameObject.transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
-    }
-
-    void Jump()
-    {
-            GetComponent<Rigidbody2D>().AddForce (Vector2.up * playerJumpPower);
     }
 }

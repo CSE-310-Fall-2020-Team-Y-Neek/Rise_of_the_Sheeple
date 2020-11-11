@@ -163,10 +163,10 @@ GameObject:
   - component: {fileID: 413788108}
   - component: {fileID: 413788110}
   - component: {fileID: 413788111}
+  - component: {fileID: 413788115}
   - component: {fileID: 413788112}
   - component: {fileID: 413788114}
   - component: {fileID: 413788113}
-  - component: {fileID: 413788115}
   m_Layer: 8
   m_Name: Main Character
   m_TagString: Untagged
@@ -256,11 +256,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.8
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &413788111
 BoxCollider2D:
@@ -271,7 +271,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 413788107}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bef102f6e8015e84194d0baa50ec7bf9, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -322,10 +322,8 @@ MonoBehaviour:
   controller: {fileID: 413788114}
   animator: {fileID: 413788112}
   playerSpeed: 2
-  playerJumpPower: 200
   moveX: 0
   facingRight: 0
-  isJumping: 0
 --- !u!114 &413788114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,28 +336,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c204b1375ac10540a5f7059fb1b44f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 400
+  m_JumpForce: 150
   m_CrouchSpeed: 0
   m_MovementSmoothing: 0
   m_AirControl: 1
   m_WhatIsGround:
+    serializedVersion: 2
     m_Bits: 4294967295
   m_GroundCheck: {fileID: 961399447}
   m_CeilingCheck: {fileID: 265155536}
   m_CrouchDisableCollider: {fileID: 0}
-  m_Grounded: 0
-  m_Rigidbody2D: {fileID: 0}
-  m_FacingRight: 1
-  m_Velocity: {x: 0, y: 0, z: 0}
   OnLandEvent:
     m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
+      m_Calls:
+      - m_Target: {fileID: 413788113}
+        m_MethodName: onLanding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
-  m_wasCrouching: 0
 --- !u!58 &413788115
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -369,13 +372,13 @@ CircleCollider2D:
   m_GameObject: {fileID: 413788107}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bef102f6e8015e84194d0baa50ec7bf9, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00420025, y: -0.069324225}
+  m_Offset: {x: 0.005183935, y: -0.06145358}
   serializedVersion: 2
-  m_Radius: 0.087767065
+  m_Radius: 0.107435465
 --- !u!1 &934200599
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934200599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.953, y: 1.079, z: 0}
+  m_LocalPosition: {x: 1.006, y: 0.937, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
