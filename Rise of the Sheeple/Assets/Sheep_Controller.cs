@@ -27,7 +27,7 @@ public class Sheep_Controller : MonoBehaviour
     void FixedUpdate()
     {
         if (target == null) {
-            // FindPlayer ();
+            FindPlayer ();
             return;
         }
 
@@ -40,12 +40,12 @@ public class Sheep_Controller : MonoBehaviour
         } 
     }
 
-    // void FindPlayer () {
-    //     if (nextTimeToSearch <= Time.time) {
-    //         GameObject searchResult = GameObject.FindGameObjectWithTag ("Player");
-    //         if (searchResult != null)
-    //             target = searchResult.transform;
-    //         nextTimeToSearch = Time.time + 0.5f;
-    //     }
-    // }
+    void FindPlayer () {
+        if (nextTimeToSearch <= Time.time) {
+            GameObject searchResult = GameObject.FindGameObjectWithTag ("Player");
+            if (searchResult != null)
+                target = searchResult.transform.gameObject;
+            nextTimeToSearch = Time.time + 0.5f;
+        }
+    }
 }
